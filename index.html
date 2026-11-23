@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- keep this family site out of search engines -->
+  <meta name="robots" content="noindex, nofollow">
+  <title>Albero Genealogico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- City photo slideshow shown behind the tree on hover -->
+  <div id="backdrop" aria-hidden="true">
+    <div class="bg-layer" id="bgA"></div>
+    <div class="bg-layer" id="bgB"></div>
+    <div class="bg-shade"></div>
+  </div>
+  <div id="city-caption" aria-hidden="true"><span class="cc-label">Luogo di nascita</span><span class="cc-name"></span><span class="cc-credit"></span></div>
+
+  <header id="topbar">
+    <div class="brand">
+      <h1 id="title">Albero Genealogico</h1>
+      <p id="subtitle"></p>
+    </div>
+    <div class="tools">
+      <div id="view-switch" role="group" aria-label="Vista">
+        <button data-view="tree">Albero</button><button data-view="timeline">Cronologia</button>
+      </div>
+      <div class="search">
+        <input id="search" type="search" placeholder="Cerca una persona…" autocomplete="off" list="people-list">
+        <datalist id="people-list"></datalist>
+      </div>
+      <div id="zoom-group" class="seg" role="group" aria-label="Zoom">
+        <button id="zoom-out" title="Riduci" aria-label="Riduci">−</button>
+        <button id="zoom-in" title="Ingrandisci" aria-label="Ingrandisci">+</button>
+        <button id="fit" title="Mostra tutto l'albero" aria-label="Mostra tutto l'albero">⤢</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="viewport">
+    <div id="world">
+      <svg id="links" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 1 L9 5 L0 9 Z" class="arrow-head"/>
+          </marker>
+          <marker id="arrow-hot" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+            <path d="M0 1 L9 5 L0 9 Z" class="arrow-head hot"/>
+          </marker>
+          <filter id="glow" filterUnits="userSpaceOnUse" x="-1000" y="-1000" width="100000" height="100000">
+            <feGaussianBlur stdDeviation="3" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <g id="axis-layer"></g>
+        <g id="link-layer"></g>
+        <g id="particle-layer"></g>
+      </svg>
+      <div id="cards"></div>
+    </div>
+  </main>
+
+  <nav id="surnames" aria-label="Famiglie"><span class="sn-label">Famiglie</span></nav>
+
+  <footer id="hint">Passa su una persona per seguirne i discendenti · clicca per la sua storia · trascina e scorri per muoverti</footer>
+
+  <!-- Person detail -->
+  <div id="modal-root" hidden>
+    <div class="modal-backdrop"></div>
+    <article class="modal" role="dialog" aria-modal="true" aria-labelledby="m-name">
+      <button class="modal-close" aria-label="Chiudi">×</button>
+      <div class="modal-scroll">
+        <div class="m-hero">
+          <div class="m-hero-bg"></div>
+          <div class="m-hero-inner">
+            <img class="m-photo" alt="">
+            <div>
+              <h2 id="m-name"></h2>
+              <p class="m-life"></p>
+              <p class="m-places"></p>
+            </div>
+          </div>
+        </div>
+        <div class="m-body">
+          <div class="m-relations"></div>
+          <div class="m-audio" hidden><h3>Registrazione vocale</h3><audio controls preload="none"></audio></div>
+          <section class="m-bio"></section>
+          <section class="m-gallery-wrap">
+            <h3>Ciò che resta</h3>
+            <div class="m-gallery"></div>
+          </section>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <div id="lightbox" hidden>
+    <button class="lb-close" aria-label="Chiudi">×</button>
+    <button class="lb-nav lb-prev" aria-label="Precedente">‹</button>
+    <figure><img alt=""><figcaption></figcaption></figure>
+    <button class="lb-nav lb-next" aria-label="Successiva">›</button>
+  </div>
+
+  <script src="js/gate.js" data-scripts="data/family.js,js/layout.js,js/app.js,js/editor.js,js/music.js"></script>
+</body>
+</html>
